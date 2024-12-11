@@ -14,7 +14,9 @@ class LinkController extends Controller
      */
     public function index(): View
     {
-        return view('links.index');
+        return view('links.index', [
+            'links' => Link::query()->latest()->get(),
+        ]);
     }
 
     /**
