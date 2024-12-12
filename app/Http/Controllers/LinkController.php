@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LinkRequest;
 use App\Models\Link;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class LinkController extends Controller
@@ -30,14 +31,9 @@ class LinkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(LinkRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'url' => 'required|url',
-        ]);
-
-        $request->user()->links()->create($validated);
+        $request->user()->links()->create($request->validated());
 
         return redirect(route('links.index'));
     }
@@ -53,17 +49,25 @@ class LinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Link $link)
+    public function edit(Link $link): View
     {
-        //
+        Gate::authorize('update', $link);
+
+        return view('links.edit', [
+            'link' => $link,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Link $link)
+    public function update(LinkRequest $request, Link $link)
     {
-        //
+        Gate::authorize('update', $link);
+
+        $link->update($request->validated());
+
+        return redirect(route('links.index'));
     }
 
     /**

@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('links', LinkController::class)
-        ->only(['index', 'store'])
+        ->only(['index', 'store', 'edit', 'update'])
         ->middleware('verified');
 });
 
