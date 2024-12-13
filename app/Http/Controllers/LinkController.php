@@ -73,8 +73,12 @@ class LinkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Link $link)
+    public function destroy(Link $link): RedirectResponse
     {
-        //
+        Gate::authorize('delete', $link);
+
+        $link->delete();
+
+        return redirect(route('links.index'));
     }
 }

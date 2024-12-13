@@ -15,7 +15,7 @@
                 <x-input-error :messages="$errors->get('url')" class="mt-2" />
             </div>
 
-            <x-primary-button class="mt-4">{{ __("Link") }}</x-primary-button>
+            <x-primary-button class="mt-4">{{ __("Adicionar") }}</x-primary-button>
         </form>
 
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
@@ -46,6 +46,13 @@
                                     <x-dropdown-link :href="route('links.edit', $link)">
                                         {{ __("Editar") }}
                                     </x-dropdown-link>
+                                    <form method="POST" action="{{ route('links.destroy', $link) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <x-dropdown-link :href="route('links.destroy', $link)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            {{ __('Delete') }}
+                                        </x-dropdown-link>
+                                    </form>
                                 </x-slot>
                             </x-dropdown>
                         </div>

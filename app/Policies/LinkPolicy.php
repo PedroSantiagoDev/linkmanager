@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Link;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class LinkPolicy
 {
@@ -45,7 +44,7 @@ class LinkPolicy
      */
     public function delete(User $user, Link $link): bool
     {
-        return false;
+        return $this->update($user, $link);
     }
 
     /**
