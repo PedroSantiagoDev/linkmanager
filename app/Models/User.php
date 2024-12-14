@@ -46,6 +46,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
+
     public function links()
     {
         return $this->hasMany(Link::class);

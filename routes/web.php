@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('links', LinkController::class)
         ->only(['index', 'store', 'edit', 'update', 'destroy'])
-        ->middleware('verified');
+        ->middleware(['verified', EnsureUserIsAdmin::class]);
 });
 
 require __DIR__.'/auth.php';

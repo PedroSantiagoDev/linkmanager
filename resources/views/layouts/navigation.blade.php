@@ -16,9 +16,11 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('links.index')" :active="request()->routeIs('links.index')">
-                            {{ __('Link') }}
-                        </x-nav-link>
+                        @if(auth()->user() && auth()->user()->isAdmin())
+                            <x-nav-link :href="route('links.index')" :active="request()->routeIs('links.index')">
+                                {{ __('Link') }}
+                            </x-nav-link>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -102,9 +104,11 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('links.index')" :active="request()->routeIs('links.index')">
-                    {{ __('Link') }}
-                </x-responsive-nav-link>
+                @if(auth()->user() && auth()->user()->isAdmin())
+                    <x-responsive-nav-link :href="route('links.index')" :active="request()->routeIs('links.index')">
+                        {{ __('Link') }}
+                    </x-responsive-nav-link>
+                @endif
             </div>
         @endif
 
