@@ -12,6 +12,15 @@ class DashboardController extends Controller
      */
     public function __invoke(): View
     {
-        return view('dashboard');
+        $news = [
+            ['title' => 'Evento Corporativo', 'description' => 'Participe do nosso evento anual!'],
+            ['title' => 'Nova Política Interna', 'description' => 'Confira as atualizações na política interna da empresa.'],
+            ['title' => 'Treinamento Disponível', 'description' => 'Aproveite os novos treinamentos online.'],
+        ];
+
+        return view('dashboard', [
+            'links' => Link::query()->paginate(),
+            'news' => $news,
+        ]);
     }
 }
